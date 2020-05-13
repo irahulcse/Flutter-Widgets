@@ -25,6 +25,14 @@ class App2 extends StatefulWidget {
 
 class _App2State extends State<App2> {
   int _selectIndex = 0;
+  bool _extended = false;
+
+  void setExtended(bool isExtended) {
+    setState(() {
+      _extended = isExtended;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,44 +42,49 @@ class _App2State extends State<App2> {
       ),
       body: Row(
         children: <Widget>[
-          NavigationRail(
-            extended: true,
-            selectedIndex: _selectIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                _selectIndex = index;
-              });
-            },
-            //labelType: NavigationRailLabelType.none,
-            destinations: [
-              NavigationRailDestination(
-                icon: Icon(
-                  Icons.favorite_border,
+          MouseRegion(
+            onEnter: (_) => setExtended(true),
+            onExit: (_) => setExtended(false),
+            child: NavigationRail(
+              leading: Extendable(),
+              extended: _extended,
+              selectedIndex: _selectIndex,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _selectIndex = index;
+                });
+              },
+              //labelType: NavigationRailLabelType.none,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.favorite_border,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.favorite,
+                  ),
+                  label: Text('First'),
                 ),
-                selectedIcon: Icon(
-                  Icons.favorite,
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.bookmark_border,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.book,
+                  ),
+                  label: Text('Second'),
                 ),
-                label: Text('First'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(
-                  Icons.bookmark_border,
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.star_border,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.star,
+                  ),
+                  label: Text('Third'),
                 ),
-                selectedIcon: Icon(
-                  Icons.book,
-                ),
-                label: Text('Second'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(
-                  Icons.star_border,
-                ),
-                selectedIcon: Icon(
-                  Icons.star,
-                ),
-                label: Text('Third'),
-              ),
-            ],
+              ],
+            ),
           ),
           VerticalDivider(
             thickness: 1,
@@ -100,7 +113,7 @@ class Extendable extends StatelessWidget {
           height: 56,
           padding: EdgeInsets.symmetric(
             vertical: lerpDouble(0, 6, animation.value),
-          ), 
+          ),
           child: animation.value == 0
               ? FloatingActionButton(
                   child: Icon(Icons.add),
