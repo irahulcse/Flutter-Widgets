@@ -100,7 +100,7 @@ class Extendable extends StatelessWidget {
           height: 56,
           padding: EdgeInsets.symmetric(
             vertical: lerpDouble(0, 6, animation.value),
-          ),
+          ), 
           child: animation.value == 0
               ? FloatingActionButton(
                   child: Icon(Icons.add),
