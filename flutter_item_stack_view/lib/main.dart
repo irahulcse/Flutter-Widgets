@@ -411,8 +411,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(
                       post["name"],
                       style: const TextStyle(
-                        color: Colors.purple,
-                          fontSize: 28, fontWeight: FontWeight.w200),
+                          fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       post["brand"],
